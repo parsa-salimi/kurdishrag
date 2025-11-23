@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kurdishrag.ca – Parsa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      background: url('https://i.imgur.com/ivHqYkW.png'); /* subtle repeating pixel pattern */
+      color: #222;
+    }
+    header {
+      background: linear-gradient(to bottom, #ffea00, #ffb300);
+      color: #000;
+      padding: 20px;
+      text-align: center;
+      font-size: 36px;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px #ff3c00;
+      border-bottom: 4px solid #ff3c00;
+      font-weight: bold;
+      font-family: "Press Start 2P", monospace;
+    }
+    nav {
+      background: #000;
+      padding: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 3px dashed #ffea00;
+    }
+    nav a {
+      text-decoration: none;
+      color: #ffea00;
+      font-family: "Press Start 2P", monospace;
+      font-size: 12px;
+      padding: 8px 14px;
+      border: 2px solid #ffea00;
+      background: #111;
+      text-shadow: 1px 1px #ff3c00;
+      transition: 0.2s;
+    }
+    nav a:hover {
+      background: #ffea00;
+      color: #000;
+      border-color: #000;
+      cursor: pointer;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fffcd1;
+      border: 4px double #000;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      box-shadow: 0 0 15px #0004;
+    }
+    h2 {
+      font-family: "Press Start 2P", monospace;
+      font-size: 18px;
+      border-bottom: 2px dotted #000;
+      padding-bottom: 8px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+    window.onload = () => showTab('main');
+  </script>
+</head>
+<body>
+  <header>PARSA</header>
+
+  <nav>
+    <a onclick="showTab('main')">MAIN</a>
+    <a onclick="showTab('leather')">LEATHERWORKING</a>
+    <a onclick="showTab('music')">MUSIC</a>
+    <a onclick="showTab('writing')">WRITING</a>
+    <a onclick="showTab('contact')">CONTACT</a>
+  </nav>
+
+  <section id="main">
+    <h2>MAIN</h2>
+    <p>Welcome to Parsa's retro corner of the internet.</p>
+  </section>
+
+  <section id="leather" style="display:none;">
+    <h2>LEATHERWORKING</h2>
+    <p>Your leatherworking projects will go here.</p>
+  </section>
+
+  <section id="music" style="display:none;">
+    <h2>MUSIC</h2>
+    <p>Music content coming soon.</p>
+  </section>
+
+  <section id="writing" style="display:none;">
+    <h2>WRITING</h2>
+    <p>Your writing pieces will appear here.</p>
+  </section>
+
+  <section id="contact" style="display:none;">
+    <h2>CONTACT</h2>
+    <p>You can add your preferred contact details here.</p>
+  </section>
+</body>
+</html>
