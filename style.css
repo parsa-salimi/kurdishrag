@@ -5,7 +5,14 @@
 body {
   margin: 0;
   font-family: 'Courier New', monospace;
-  background: url('https://i.imgur.com/ivHqYkW.png');
+  /* Retro diagonal stripe pattern */
+  background: repeating-linear-gradient(
+    45deg,
+    #f5f2e7,
+    #f5f2e7 20px,
+    #e0d5c3 20px,
+    #e0d5c3 40px
+  );
   color: #222;
 }
 
