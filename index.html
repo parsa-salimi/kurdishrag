@@ -3,51 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kurdishrag.ca – Parsa</title>
+  <meta name="description" content="Parsa's personal portfolio - showcasing leatherworking, music, and writing projects" />
+  <title>Parsa - Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <script>
-    function showTab(id) {
-      document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
-    }
-    window.onload = () => showTab('main');
-  </script>
 </head>
 <body>
   <header>PARSA</header>
 
   <nav>
     <a onclick="showTab('main')">MAIN</a>
-    <a onclick="showTab('leather')">LEATHERWORKING</a>
+    <a onclick="showTab('leatherwork')">LEATHERWORK</a>
     <a onclick="showTab('music')">MUSIC</a>
     <a onclick="showTab('writing')">WRITING</a>
+    <a onclick="showTab('blog')">BLOG</a>
     <a onclick="showTab('contact')">CONTACT</a>
   </nav>
 
   <section id="main">
-    <h2>MAIN</h2>
-    <p>Welcome to Parsa's corner of the internet.</p>
+    <h2>WELCOME</h2>
+    <p>Welcome to my corner of the internet. I'm Parsa - a creator working across multiple mediums.</p>
+    <p>I craft custom leather goods, create music, and write. This portfolio showcases my work and serves as a space to share updates and thoughts.</p>
+    <p>Browse through my projects, check out the blog for updates, or reach out if you'd like to collaborate or commission a piece.</p>
   </section>
 
-  <section id="leather" style="display:none;">
+  <section id="leatherwork" style="display:none;">
     <h2>LEATHERWORKING</h2>
-    <p>Yeah I make leather wallets and purses. Shoot me a text if you want something custom-made (PWYC)</p>
+    <p>I create handmade leather wallets, purses, and accessories. Each piece is crafted with attention to detail and built to last.</p>
+    <p>Interested in a custom piece? All items are pay-what-you-can (PWYC). Check out some of my work below and reach out via the contact form.</p>
+
+    <h3>RECENT PROJECTS</h3>
+    <div id="leatherwork-gallery" class="gallery">
+      <!-- Gallery will be populated by projects.js -->
+    </div>
   </section>
 
   <section id="music" style="display:none;">
     <h2>MUSIC</h2>
-    <p>Music content coming soon.</p>
+    <p>My music explores various genres and moods, from ambient soundscapes to more rhythmic compositions.</p>
+
+    <h3>RECENT TRACKS</h3>
+    <div id="music-gallery" class="gallery">
+      <!-- Gallery will be populated by projects.js -->
+    </div>
   </section>
 
   <section id="writing" style="display:none;">
     <h2>WRITING</h2>
-    <p>Your writing pieces will appear here.</p>
+    <p>I write essays, short stories, and reflections on creativity, craftsmanship, and life.</p>
+
+    <h3>RECENT PIECES</h3>
+    <div id="writing-gallery" class="gallery">
+      <!-- Gallery will be populated by projects.js -->
+    </div>
+  </section>
+
+  <section id="blog" style="display:none;">
+    <h2>BLOG & UPDATES</h2>
+    <p>News, updates, and thoughts on my creative work.</p>
+
+    <div id="blog-container" class="blog-posts">
+      <!-- Blog posts will be populated by projects.js -->
+    </div>
   </section>
 
   <section id="contact" style="display:none;">
-    <h2>CONTACT</h2>
-    <p>You can add your preferred contact details here.</p>
+    <h2>GET IN TOUCH</h2>
+    <p>Interested in commissioning a piece, collaborating, or just want to say hello? Drop me a message below.</p>
+
+    <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-group">
+        <label for="name">NAME</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">SUBJECT</label>
+        <input type="text" id="subject" name="subject">
+      </div>
+
+      <div class="form-group">
+        <label for="message">MESSAGE</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">SEND MESSAGE</button>
+
+      <div class="form-message"></div>
+    </form>
   </section>
+
+  <!-- Scripts -->
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
