@@ -3,72 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Parsa's personal portfolio - showcasing leatherworking, music, and writing projects" />
-  <title>Parsa - Portfolio</title>
+  <meta name="description" content="Parsa's reviews, essays, and lists — music, books, and more." />
+  <title>Parsa — Reviews & Lists</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>PARSA</header>
+  <header>
+    <div class="brand">PARSA</div>
+    <div class="tagline">MUSIC YOU SHOULD HEAR · BOOKS WORTH READING</div>
+  </header>
 
   <nav>
     <a onclick="showTab('main')">MAIN</a>
-    <a onclick="showTab('leatherwork')">LEATHERWORK</a>
     <a onclick="showTab('music')">MUSIC</a>
-    <a onclick="showTab('writing')">WRITING</a>
-    <a onclick="showTab('blog')">BLOG</a>
+    <a onclick="showTab('books')">BOOKS</a>
+    <a onclick="showTab('lists')">LISTS</a>
+    <a onclick="showTab('journal')">JOURNAL</a>
     <a onclick="showTab('contact')">CONTACT</a>
   </nav>
 
   <section id="main">
     <h2>WELCOME</h2>
-    <p>Welcome to my corner of the internet. I'm Parsa - a creator working across multiple mediums.</p>
-    <p>I craft custom leather goods, create music, and write. This portfolio showcases my work and serves as a space to share updates and thoughts.</p>
-    <p>Browse through my projects, check out the blog for updates, or reach out if you'd like to collaborate or commission a piece.</p>
-  </section>
+    <p>This is a place to find music you might not have heard yet — and, when it earns the space, books worth sitting with. Everything on this site is a recommendation. If a record or a book isn't here, it's because I didn't think it was worth your time.</p>
+    <p>Start with the <a onclick="showTab('music')">music</a> page for individual album reviews, or jump to the <a onclick="showTab('lists')">lists</a> if you want curated starting points — gateway records for a genre, all-time favourites, what I have been listening to this month. <a onclick="showTab('books')">Books</a> are there too, alongside <a onclick="showTab('journal')">longer notes</a> on artists and scenes worth exploring.</p>
+    <p>Ratings are out of 10 and reflect one person's ear. Use them as a rough signal — then go listen for yourself.</p>
 
-  <section id="leatherwork" style="display:none;">
-    <h2>LEATHERWORKING</h2>
-    <p>I create handmade leather wallets, purses, and accessories. Each piece is crafted with attention to detail and built to last.</p>
-    <p>Interested in a custom piece? All items are pay-what-you-can (PWYC). Check out some of my work below and reach out via the contact form.</p>
-
-    <h3>RECENT PROJECTS</h3>
-    <div id="leatherwork-gallery" class="gallery">
-      <!-- Gallery will be populated by projects.js -->
-    </div>
+    <h3>LATEST RECOMMENDATIONS</h3>
+    <div id="latest-feed" class="latest-feed"></div>
   </section>
 
   <section id="music" style="display:none;">
     <h2>MUSIC</h2>
-    <p>My music explores various genres and moods, from ambient soundscapes to more rhythmic compositions.</p>
+    <p>Albums worth your time. Only records I would actually press into a friend's hands get written up here — there is no room for middling. Rated out of 10; anything listed is already recommended.</p>
 
-    <h3>RECENT TRACKS</h3>
-    <div id="music-gallery" class="gallery">
-      <!-- Gallery will be populated by projects.js -->
+    <div class="toolbar">
+      <span class="toolbar-label">SORT:</span>
+      <button class="sort-btn active" data-target="music" data-sort="date">RECENT</button>
+      <button class="sort-btn" data-target="music" data-sort="rating">RATING</button>
+      <button class="sort-btn" data-target="music" data-sort="artist">ARTIST A–Z</button>
     </div>
+
+    <div id="music-reviews" class="reviews"></div>
   </section>
 
-  <section id="writing" style="display:none;">
-    <h2>WRITING</h2>
-    <p>I write essays, short stories, and reflections on creativity, craftsmanship, and life.</p>
+  <section id="books" style="display:none;">
+    <h2>BOOKS</h2>
+    <p>A smaller list — books I would recommend without hesitation. Fiction first, essays and poetry where they earn it. Same 10-point scale.</p>
 
-    <h3>RECENT PIECES</h3>
-    <div id="writing-gallery" class="gallery">
-      <!-- Gallery will be populated by projects.js -->
+    <div class="toolbar">
+      <span class="toolbar-label">SORT:</span>
+      <button class="sort-btn active" data-target="books" data-sort="date">RECENT</button>
+      <button class="sort-btn" data-target="books" data-sort="rating">RATING</button>
+      <button class="sort-btn" data-target="books" data-sort="author">AUTHOR A–Z</button>
     </div>
+
+    <div id="book-reviews" class="reviews"></div>
   </section>
 
-  <section id="blog" style="display:none;">
-    <h2>BLOG & UPDATES</h2>
-    <p>News, updates, and thoughts on my creative work.</p>
+  <section id="lists" style="display:none;">
+    <h2>LISTS &amp; STARTING POINTS</h2>
+    <p>Curated lists to help you find somewhere to begin. Ranked where ranking makes sense, unranked where it doesn't. Treat them as entry doors, not final words.</p>
 
-    <div id="blog-container" class="blog-posts">
-      <!-- Blog posts will be populated by projects.js -->
-    </div>
+    <div id="lists-container"></div>
+  </section>
+
+  <section id="journal" style="display:none;">
+    <h2>NOTES &amp; PRIMERS</h2>
+    <p>Longer pieces that don't fit into a single review: artist spotlights, genre primers, listening guides. If you are trying to find a way into a scene or a discography, start here.</p>
+
+    <div id="journal-container" class="journal"></div>
   </section>
 
   <section id="contact" style="display:none;">
     <h2>GET IN TOUCH</h2>
-    <p>Interested in commissioning a piece, collaborating, or just want to say hello? Drop me a message below.</p>
+    <p>Recommend something back. Tell me I'm wrong about an album. Ask where to start with an artist I've written about. Mail is open.</p>
 
     <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="form-group">
@@ -97,7 +105,10 @@
     </form>
   </section>
 
-  <!-- Scripts -->
+  <footer>
+    <p>parsa · kurdishrag.ca · a small guide to good music (and some good books)</p>
+  </footer>
+
   <script src="projects.js"></script>
   <script src="script.js"></script>
 </body>

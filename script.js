@@ -92,20 +92,3 @@ function initContactForm() {
 // Initialize contact form when DOM is ready
 window.addEventListener('DOMContentLoaded', initContactForm);
 
-// Gallery Lightbox (optional enhancement)
-function initGallery() {
-  const galleryItems = document.querySelectorAll('.gallery-item');
-
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      if (img) {
-        // Simple lightbox - could be enhanced with a modal
-        window.open(img.src, '_blank');
-      }
-    });
-  });
-}
-
-// Initialize gallery when DOM is ready
-window.addEventListener('DOMContentLoaded', initGallery);

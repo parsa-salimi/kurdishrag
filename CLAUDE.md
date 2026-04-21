@@ -4,124 +4,112 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static personal portfolio website for Parsa (kurdishrag.ca) with a refined retro aesthetic. It's a single-page application showcasing work across leatherworking, music, and writing, built with vanilla HTML, CSS, and JavaScript with no build system or dependencies.
+A static site (kurdishrag.ca) where Parsa publishes music recommendations, book reviews, and curated favourite lists for visitors to discover new work. Scaruffi-inspired in spirit — opinionated, text-first, minimal — but rendered with a refined retro aesthetic. Built with vanilla HTML, CSS, and JavaScript with no build system or dependencies.
+
+The site's editorial stance: **only recommend, never warn off.** If a record or book isn't on the site, it didn't make the cut. Ratings (out of 10) are a rough signal to help readers navigate, not a verdict.
 
 ## Architecture
 
 ### Tab Navigation System
 - Client-side routing via `showTab(id)` function in script.js
 - All sections are loaded in the DOM, only one visible at a time using `display: none/block`
-- Navigation handled by inline `onclick` handlers in nav links
+- Navigation via inline `onclick` handlers on nav links
 - Active tab highlighting with CSS class `.active`
 - URL hash support for browser back/forward navigation
-- Smooth fade-in animations on tab transitions (CSS animation in style.css:127-136)
-- On page load, checks URL hash or defaults to 'main' section
+- Smooth fade-in animations on tab transitions
+- On page load, checks URL hash or defaults to 'main'
+
+### Sections
+- **MAIN** — intro + "latest recommendations" feed (aggregated across music/books/notes)
+- **MUSIC** — individual album reviews with rating, genre, prose. Sortable by recent/rating/artist.
+- **BOOKS** — same structure, author-keyed
+- **LISTS** — curated starting points (favourite albums, favourite novels, favourite films, currently-on-rotation)
+- **JOURNAL** — longer-form notes, genre primers, listening guides
+- **CONTACT** — Formspree form
 
 ### File Structure
 ```
-Personal-website/
-├── index.html          # Main HTML with all content sections
-├── style.css           # Complete styling with CSS custom properties
-├── script.js           # Tab navigation, form handling, gallery init
-├── projects.js         # Project data and rendering functions
-├── CNAME              # GitHub Pages custom domain (kurdishrag.ca)
-└── assets/            # Image assets for projects
-    ├── leatherwork/
-    ├── music/
-    └── writing/
+kurdishrag/
+├── index.html          # Section scaffolding + nav + contact form
+├── style.css           # Styling with CSS custom properties
+├── script.js           # Tab navigation + contact form
+├── projects.js         # All content data + rendering functions
+├── CNAME               # GitHub Pages custom domain (kurdishrag.ca)
+└── assets/             # (legacy) image assets; currently unused by reviews site
 ```
 
 ### Design System (CSS Custom Properties)
 
-**Color Palette:**
-- Softer retro colors replacing harsh yellow/orange
-- Primary: `#ffd4a3` (warm peach)
-- Secondary: `#ffb5a7` (soft pink)
-- Accent: `#a8dadc` (soft teal)
-- Background: `#f1e3cb` (cream) with diagonal stripe pattern
-- Text: `#2d3142` (soft black), `#5a5766` (medium gray)
+**Colour palette** (style.css :root):
+- Primary `#ffd4a3` (peach), secondary `#ffb5a7` (pink), accent `#a8dadc` (teal)
+- Background `#f1e3cb` (cream) with diagonal stripe, paper `#fbf4e3` for section cards
+- Rating colours: hi `#2a9d8f`, mid `#e9b949`, lo `#c77d5a`
 
 **Typography:**
 - Headings: 'Press Start 2P' pixel font
-- Body: 'Space Mono' monospace font
-- Size scale: xs (10px) → sm (12px) → base (14px) → md (16px) → lg (20px) → xl (28px)
+- UI/meta: 'Space Mono' monospace
+- Long-form review & list body: 'EB Garamond' serif (17px, 1.7 line-height)
 
-**Spacing System:**
-- xs: 8px, sm: 12px, md: 20px, lg: 32px, xl: 48px
-- All defined in CSS custom properties (style.css:6-36)
+### Data Model (projects.js)
 
-### Key Features
+All editable content lives at the top of `projects.js` in four arrays:
 
-**1. Project Galleries (projects.js)**
-- Data-driven galleries for leatherwork, music, and writing
-- Project objects stored in `projects` object, keyed by category
-- `renderGallery(category, containerId)` dynamically generates gallery HTML
-- Placeholder images with fallback SVG if image missing
-- Gallery items are clickable (currently opens image in new tab)
+```js
+musicReviews: [{ artist, album, year, rating, genre, date, review }]
+bookReviews:  [{ author, title,  year, rating, genre, date, review }]
+lists:        [{ id, title, description, items: [{ position?, primary, secondary?, year?, note? }] }]
+journalEntries: [{ title, date, content }]
+```
 
-**2. Blog System (projects.js)**
-- Blog posts stored in `blogPosts` array with title, date, excerpt, content
-- `renderBlogPosts()` generates blog post cards
-- Date formatting via `formatDate()` helper
-- "Read More" links (currently placeholders)
+- `rating` is a number out of 10; half-points allowed. Colour bucket is hi ≥9, mid ≥7, lo <7.
+- `review` / `content` support paragraph breaks via blank lines (`\n\n`).
+- `date` (YYYY-MM-DD) drives the recent-sort and the Main-page "latest" feed.
+- A list's `items` are auto-ranked when any item has a `position`; otherwise they render as an unordered list.
 
-**3. Contact Form (index.html:73-97, script.js)**
-- Form submits to Formspree endpoint (requires setup)
-- Async form submission with `initContactForm()` in script.js
-- Success/error messaging with styled alerts
-- Form validation using HTML5 required attributes
-- **Setup needed:** Replace `YOUR_FORM_ID` in index.html:73 with actual Formspree form ID
+### Rendering Functions (projects.js)
 
-**4. Responsive Design**
-- Mobile-first approach with breakpoints at 768px and 480px
-- Sticky navigation bar with shadow
-- Grid galleries collapse to single column on mobile
-- Typography and spacing scales down for smaller screens
+- `renderMusicReview` / `renderBookReview` — per-entry HTML
+- `renderReviews(containerId, data, renderer)` — sorts by date desc and injects
+- `renderLists` — iterates `lists`, decides ranked vs unranked per list
+- `renderJournal` — journal entries, date-sorted
+- `renderLatest` — merges reviews + journal into a 6-item "latest" feed on the main page
+- `sortReviews(target, sortKey)` + `initSortButtons` — client-side re-sort by `date | rating | artist | author`
 
 ## Development
 
-### Local Development
-Preview the site locally using a simple HTTP server:
+### Local preview
 ```bash
 python3 -m http.server 8000
 # or
 npx serve
 ```
-Then open `http://localhost:8000` in a browser.
+Open `http://localhost:8000`.
 
-### Making Changes
+### Adding a review
+1. Open `projects.js`
+2. Add an object to `musicReviews` or `bookReviews`
+3. Use today's date (`YYYY-MM-DD`) so it surfaces in the "latest" feed
+4. Reload — no build step
 
-**Content Updates:**
-- Page copy: Edit the relevant `<section>` in index.html
-- Project portfolio: Update `projects` object in projects.js
-- Blog posts: Add to `blogPosts` array in projects.js
+### Adding a list
+Append a new object to `lists`. Use `position` on items if you want ranked rendering; leave it off for an unordered list. The `id` is cosmetic (not yet used for anchor links).
 
-**Adding Project Images:**
-1. Add image files to appropriate `assets/` subdirectory
-2. Update image paths in projects.js entries
-3. Images will auto-fallback to placeholder SVG if missing
+### Adding a journal entry
+Append to `journalEntries`. Paragraphs are separated by blank lines inside the `content` template string.
 
-**Styling:**
-- Modify CSS custom properties in style.css:6-36 for global changes
-- Component-specific styles organized by section in style.css
+### Styling
+- Global design tokens at the top of style.css
+- Review / list / journal blocks have their own sections — edits are usually local
 
-**New Tabs:**
-1. Add `<section id="new-tab">` to index.html
-2. Add nav link: `<a onclick="showTab('new-tab')">NEW TAB</a>`
-3. Section will inherit fade-in animation automatically
-
-### Contact Form Setup
-
-To enable the contact form:
-1. Sign up at https://formspree.io (free tier available)
-2. Create a new form and get your form ID
-3. Replace `YOUR_FORM_ID` in index.html:73 with your actual form ID
-4. Test submission - you'll receive emails at your registered address
+### Contact form
+Replace `YOUR_FORM_ID` on `<form>` in index.html with your Formspree ID.
 
 ## Deployment
 
-The site is deployed via GitHub Pages with a custom domain (kurdishrag.ca). Changes pushed to the main branch are automatically published.
+Pushed to GitHub Pages with custom domain kurdishrag.ca. Changes on the main branch publish automatically.
 
-## Project Data Management
+## Scaling Notes
 
-Projects and blog posts are managed via JavaScript objects in projects.js rather than a CMS or markdown files. To scale beyond ~20 entries per category, consider migrating to a static site generator (11ty, Hugo, Astro) or headless CMS.
+Content lives in a single JS file for simplicity. If the catalogue grows past ~50 reviews per category, consider:
+- Splitting data into `data/music.js`, `data/books.js`, etc.
+- Or migrating to a static site generator (11ty, Astro) with Markdown-per-review.
