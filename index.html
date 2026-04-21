@@ -3,80 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Parsa's reviews, essays, and lists — music, books, and more." />
-  <title>Parsa — Reviews & Lists</title>
+  <meta name="description" content="Parsa writes about music — album reviews, favourite lists, longer essays." />
+  <title>Parsa — Music</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div class="brand">PARSA</div>
-    <div class="tagline">MUSIC YOU SHOULD HEAR · BOOKS WORTH READING</div>
+    <div class="tagline">ALBUM REVIEWS · LISTS · ESSAYS</div>
   </header>
 
   <nav>
     <a onclick="showTab('main')">MAIN</a>
-    <a onclick="showTab('music')">MUSIC</a>
-    <a onclick="showTab('books')">BOOKS</a>
+    <a onclick="showTab('albums')">ALBUMS</a>
     <a onclick="showTab('lists')">LISTS</a>
-    <a onclick="showTab('journal')">JOURNAL</a>
+    <a onclick="showTab('essays')">ESSAYS</a>
     <a onclick="showTab('contact')">CONTACT</a>
   </nav>
 
   <section id="main">
     <h2>WELCOME</h2>
-    <p>This is a place to find music you might not have heard yet — and, when it earns the space, books worth sitting with. Everything on this site is a recommendation. If a record or a book isn't here, it's because I didn't think it was worth your time.</p>
-    <p>Start with the <a onclick="showTab('music')">music</a> page for individual album reviews, or jump to the <a onclick="showTab('lists')">lists</a> if you want curated starting points — gateway records for a genre, all-time favourites, what I have been listening to this month. <a onclick="showTab('books')">Books</a> are there too, alongside <a onclick="showTab('journal')">longer notes</a> on artists and scenes worth exploring.</p>
-    <p>Ratings are out of 10 and reflect one person's ear. Use them as a rough signal — then go listen for yourself.</p>
+    <p>I write about music. <a onclick="showTab('albums')">Album reviews</a>, <a onclick="showTab('lists')">favourite lists</a>, and <a onclick="showTab('essays')">longer essays</a> — nothing else. Ratings are out of 10.</p>
 
-    <h3>LATEST RECOMMENDATIONS</h3>
+    <h3>LATEST</h3>
     <div id="latest-feed" class="latest-feed"></div>
   </section>
 
-  <section id="music" style="display:none;">
-    <h2>MUSIC</h2>
-    <p>Albums worth your time. Only records I would actually press into a friend's hands get written up here — there is no room for middling. Rated out of 10; anything listed is already recommended.</p>
+  <section id="albums" style="display:none;">
+    <h2>ALBUM REVIEWS</h2>
 
     <div class="toolbar">
       <span class="toolbar-label">SORT:</span>
-      <button class="sort-btn active" data-target="music" data-sort="date">RECENT</button>
-      <button class="sort-btn" data-target="music" data-sort="rating">RATING</button>
-      <button class="sort-btn" data-target="music" data-sort="artist">ARTIST A–Z</button>
+      <button class="sort-btn active" data-target="albums" data-sort="date">RECENT</button>
+      <button class="sort-btn" data-target="albums" data-sort="rating">RATING</button>
+      <button class="sort-btn" data-target="albums" data-sort="artist">ARTIST A–Z</button>
     </div>
 
-    <div id="music-reviews" class="reviews"></div>
-  </section>
-
-  <section id="books" style="display:none;">
-    <h2>BOOKS</h2>
-    <p>A smaller list — books I would recommend without hesitation. Fiction first, essays and poetry where they earn it. Same 10-point scale.</p>
-
-    <div class="toolbar">
-      <span class="toolbar-label">SORT:</span>
-      <button class="sort-btn active" data-target="books" data-sort="date">RECENT</button>
-      <button class="sort-btn" data-target="books" data-sort="rating">RATING</button>
-      <button class="sort-btn" data-target="books" data-sort="author">AUTHOR A–Z</button>
-    </div>
-
-    <div id="book-reviews" class="reviews"></div>
+    <div id="album-reviews" class="reviews"></div>
   </section>
 
   <section id="lists" style="display:none;">
-    <h2>LISTS &amp; STARTING POINTS</h2>
-    <p>Curated lists to help you find somewhere to begin. Ranked where ranking makes sense, unranked where it doesn't. Treat them as entry doors, not final words.</p>
-
+    <h2>LISTS</h2>
     <div id="lists-container"></div>
   </section>
 
-  <section id="journal" style="display:none;">
-    <h2>NOTES &amp; PRIMERS</h2>
-    <p>Longer pieces that don't fit into a single review: artist spotlights, genre primers, listening guides. If you are trying to find a way into a scene or a discography, start here.</p>
-
-    <div id="journal-container" class="journal"></div>
+  <section id="essays" style="display:none;">
+    <h2>ESSAYS</h2>
+    <div id="essays-container" class="journal"></div>
   </section>
 
   <section id="contact" style="display:none;">
-    <h2>GET IN TOUCH</h2>
-    <p>Recommend something back. Tell me I'm wrong about an album. Ask where to start with an artist I've written about. Mail is open.</p>
+    <h2>CONTACT</h2>
 
     <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
       <div class="form-group">
@@ -106,7 +83,7 @@
   </section>
 
   <footer>
-    <p>parsa · kurdishrag.ca · a small guide to good music (and some good books)</p>
+    <p>parsa · kurdishrag.ca</p>
   </footer>
 
   <script src="projects.js"></script>

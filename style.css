@@ -178,6 +178,17 @@ a {
 }
 a:hover { color: var(--color-secondary); }
 
+/* --- EMPTY STATE --- */
+.empty-state {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-md) 0;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
 /* --- LATEST FEED (on main page) --- */
 .latest-feed {
   margin: var(--space-md) 0 0;
