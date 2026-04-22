@@ -8,8 +8,9 @@
 const albumReviews = [];
 
 // ---------- LISTS ----------
-// { id, title, description?, items: [{ position?, primary, secondary?, year?, note? }] }
+// { id, title, description?, date?, items: [{ position?, primary, secondary?, year?, note? }] }
 // Items with any `position` render as ranked; otherwise unranked.
+// An optional top-level `date` makes the list surface in the "LATEST" feed.
 const lists = [];
 
 // ---------- ESSAYS ----------
@@ -122,8 +123,9 @@ function renderLatest() {
 
   const items = [
     ...albumReviews.map(r => ({ type: 'album', date: r.date, primary: r.artist, secondary: r.album, rating: r.rating, target: 'albums' })),
+    ...lists.filter(l => l.date).map(l => ({ type: 'list', date: l.date, primary: l.title, secondary: '', target: 'lists' })),
     ...essays.map(e => ({ type: 'essay', date: e.date, primary: e.title, secondary: '', target: 'essays' }))
-  ].sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 6);
+  ].sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 10);
 
   if (!items.length) {
     container.innerHTML = emptyState('Nothing here yet.');
@@ -131,7 +133,7 @@ function renderLatest() {
   }
 
   container.innerHTML = items.map(i => {
-    const label = i.type === 'album' ? 'ALBUM' : 'ESSAY';
+    const label = i.type === 'album' ? 'ALBUM' : i.type === 'list' ? 'LIST' : 'ESSAY';
     const rating = typeof i.rating === 'number' ? `<span class="feed-rating ${ratingColor(i.rating)}">${i.rating.toFixed(1)}</span>` : '';
     const sec = i.secondary ? ` — <em>${i.secondary}</em>` : '';
     return `

@@ -375,7 +375,14 @@ a:hover { color: var(--color-accent); }
 }
 .journal-body p { margin-bottom: var(--space-sm); }
 
-/* --- CONTACT FORM --- */
+.contact-email {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  margin-top: var(--space-md);
+}
+.contact-email a { font-size: 15px; }
+
+/* --- CONTACT FORM (legacy — retained in case the form returns) --- */
 .contact-form { max-width: 540px; margin: var(--space-md) 0; }
 .form-group { margin-bottom: var(--space-md); }
 .form-group label {

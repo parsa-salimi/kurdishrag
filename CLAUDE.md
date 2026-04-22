@@ -54,15 +54,19 @@ All editable content lives at the top of `projects.js` in three arrays:
 
 ```js
 albumReviews: [{ artist, album, year, rating, genre, date, review }]
-lists:        [{ id, title, description?, items: [{ position?, primary, secondary?, year?, note? }] }]
+lists:        [{ id, title, description?, date?, items: [{ position?, primary, secondary?, year?, note? }] }]
 essays:       [{ title, date, content }]
 ```
 
 - `rating` — number out of 10, half-points allowed. Colour bucket: hi ≥9, mid ≥7, lo <7.
 - `review` / `content` — paragraph breaks via blank lines (`\n\n`) inside the template literal.
-- `date` — `YYYY-MM-DD`. Drives date-desc sort and the Main-page "latest" feed.
+- `date` — `YYYY-MM-DD`. Drives date-desc sort and the Main-page "latest" feed. Required on album reviews and essays; optional on lists (set it to have the list surface in the latest feed).
 - `lists[].items` — render as ranked when any item has a `position`; otherwise unranked.
 - Empty arrays render a small "No reviews yet." / "No lists yet." / "No essays yet." message.
+
+### Latest feed
+
+The main page's LATEST section aggregates the ten most recent items across `albumReviews`, `essays`, and any list that has a top-level `date`. When publishing a list you want featured on the main page, include a `date: 'YYYY-MM-DD'` at the list level.
 
 ### Rendering Functions (projects.js)
 
@@ -99,8 +103,8 @@ Prepend to `essays`. Paragraphs are separated by blank lines inside the `content
 - Global design tokens at the top of `style.css`
 - Review / list / essay blocks each have their own section — edits are usually local
 
-### Contact form
-Replace `YOUR_FORM_ID` on the `<form>` in `index.html` with your Formspree ID.
+### Contact
+The contact section is a plain `mailto:` link in `index.html`. To change the address, edit both occurrences of `hello@kurdishrag.ca` in the contact section (the `href` and the visible text).
 
 ## Publishing Workflow (plaintext requests)
 

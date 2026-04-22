@@ -1,5 +1,5 @@
 // Main JavaScript for Personal Website
-// Handles tab navigation, gallery, and form functionality
+// Handles tab navigation.
 
 // Tab Navigation System
 function showTab(tabId) {
@@ -17,8 +17,6 @@ function showTab(tabId) {
   const targetSection = document.getElementById(tabId);
   if (targetSection) {
     targetSection.style.display = 'block';
-    // Trigger reflow to restart fade-in animation
-    void targetSection.offsetWidth;
   }
 
   // Add active class to clicked nav link
@@ -33,7 +31,6 @@ function showTab(tabId) {
 
 // Initialize on page load
 window.addEventListener('DOMContentLoaded', () => {
-  // Check if there's a hash in the URL
   const hash = window.location.hash.substring(1);
   const initialTab = hash || 'main';
   showTab(initialTab);
@@ -46,49 +43,4 @@ window.addEventListener('hashchange', () => {
     showTab(hash);
   }
 });
-
-// Contact Form Handler
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const submitBtn = form.querySelector('.submit-btn');
-    const formMessage = form.querySelector('.form-message');
-    const formData = new FormData(form);
-
-    // Disable button during submission
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'SENDING...';
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        formMessage.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-        formMessage.className = 'form-message success';
-        form.reset();
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      formMessage.textContent = 'Oops! Something went wrong. Please try again.';
-      formMessage.className = 'form-message error';
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'SEND MESSAGE';
-    }
-  });
-}
-
-// Initialize contact form when DOM is ready
-window.addEventListener('DOMContentLoaded', initContactForm);
 
