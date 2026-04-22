@@ -40,6 +40,25 @@ function renderParagraphs(text) {
     .join('');
 }
 
+// Essay content: same paragraph rules as reviews, plus markdown-style
+// images on their own line: ![caption](path/to/image.jpg)
+function renderEssayContent(text) {
+  return text
+    .split(/\n\s*\n/)
+    .map(block => {
+      const trimmed = block.trim();
+      const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        const [, caption, src] = imgMatch;
+        const captionHtml = caption ? `<figcaption>${caption}</figcaption>` : '';
+        const altText = caption || '';
+        return `<figure class="essay-figure"><img src="${src}" alt="${altText}" loading="lazy">${captionHtml}</figure>`;
+      }
+      return `<p>${trimmed.replace(/\n/g, '<br>')}</p>`;
+    })
+    .join('');
+}
+
 function emptyState(message) {
   return `<p class="empty-state">${message}</p>`;
 }
@@ -112,7 +131,7 @@ function renderEssays() {
     <article class="journal-entry">
       <div class="journal-date">${formatDate(entry.date)}</div>
       <h3>${entry.title}</h3>
-      <div class="journal-body">${renderParagraphs(entry.content)}</div>
+      <div class="journal-body">${renderEssayContent(entry.content)}</div>
     </article>
   `).join('');
 }

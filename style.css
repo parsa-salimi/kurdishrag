@@ -375,6 +375,28 @@ a:hover { color: var(--color-accent); }
 }
 .journal-body p { margin-bottom: var(--space-sm); }
 
+.essay-figure {
+  margin: var(--space-lg) 0;
+  padding: 0;
+}
+.essay-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--color-rule);
+  background: #fff;
+}
+.essay-figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-top: var(--space-xs);
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 .contact-email {
   font-family: var(--font-mono);
   font-size: 15px;

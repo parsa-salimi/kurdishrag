@@ -59,7 +59,8 @@ essays:       [{ title, date, content }]
 ```
 
 - `rating` — number out of 10, half-points allowed. Colour bucket: hi ≥9, mid ≥7, lo <7.
-- `review` / `content` — paragraph breaks via blank lines (`\n\n`) inside the template literal.
+- `review` — plain text; paragraph breaks via blank lines (`\n\n`).
+- `content` (essays) — same paragraph rule, plus markdown image syntax on its own line: `![caption](images/essays/foo.jpg)` renders as a `<figure>` with caption.
 - `date` — `YYYY-MM-DD`. Drives date-desc sort and the Main-page "latest" feed. Required on album reviews and essays; optional on lists (set it to have the list surface in the latest feed).
 - `lists[].items` — render as ranked when any item has a `position`; otherwise unranked.
 - Empty arrays render a small "No reviews yet." / "No lists yet." / "No essays yet." message.
@@ -98,6 +99,18 @@ Append a new object to `lists`. Use `position` on items for ranked rendering; om
 
 ### Adding an essay
 Prepend to `essays`. Paragraphs are separated by blank lines inside the `content` template string.
+
+To embed an image, put a markdown-style image line on its own (surrounded by blank lines) inside the content:
+
+```
+Some paragraph.
+
+![Nils Frahm at Funkhaus, 2019](images/essays/nils-frahm.jpg)
+
+Another paragraph.
+```
+
+The caption is the text in the square brackets; it renders as a centred, uppercase caption below the image. The path in the parentheses is a relative URL — put image files under `images/essays/` (create the folder the first time).
 
 ### Styling
 - Global design tokens at the top of `style.css`
