@@ -1,0 +1,23 @@
+---
+layout: base.njk
+permalink: /
+---
+<section>
+  <h2>WELCOME</h2>
+  <p>I write about music. <a href="/albums/">Album reviews</a>, <a href="/lists/">favourite lists</a>, and <a href="/essays/">longer essays</a> — nothing else. Ratings are out of 10.</p>
+
+  <h3>LATEST</h3>
+  <div class="latest-feed">
+    {% if collections.latest.length %}
+      {% for i in collections.latest %}
+        <a class="feed-item" href="{{ i.url }}">
+          <span class="feed-label">{{ i.type | upper }}</span>
+          <span class="feed-date">{{ i.dateObj | readableDate }}</span>
+          <div class="feed-title">{{ i.primary }}{% if i.secondary %} — <em>{{ i.secondary }}</em>{% endif %}{% if i.rating %} <span class="feed-rating {{ i.rating | ratingColor }}">{{ i.rating | toFixed(1) }}</span>{% endif %}</div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <p class="empty-state">Nothing here yet.</p>
+    {% endif %}
+  </div>
+</section>

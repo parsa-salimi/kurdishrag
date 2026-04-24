@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ description or 'Parsa writes about music — album reviews, favourite lists, longer essays.' }}" />
+  <title>{% if title %}{{ title }} — Parsa{% else %}Parsa — Music{% endif %}</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="alternate" type="application/atom+xml" title="kurdishrag.ca" href="/feed.xml">
+</head>
+<body>
+  <header>
+    <div class="brand">PARSA</div>
+    <div class="tagline">ALBUM REVIEWS · LISTS · ESSAYS</div>
+  </header>
+
+  <nav>
+    <a href="/"{% if page.url == "/" %} class="active"{% endif %}>MAIN</a>
+    <a href="/albums/"{% if page.url | startsWith("/albums") %} class="active"{% endif %}>ALBUMS</a>
+    <a href="/lists/"{% if page.url | startsWith("/lists") %} class="active"{% endif %}>LISTS</a>
+    <a href="/essays/"{% if page.url | startsWith("/essays") %} class="active"{% endif %}>ESSAYS</a>
+    <a href="/contact/"{% if page.url == "/contact/" %} class="active"{% endif %}>CONTACT</a>
+  </nav>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer>
+    <p>parsa · kurdishrag.ca</p>
+  </footer>
+</body>
+</html>

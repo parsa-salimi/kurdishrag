@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/essay.njk",
+  "tags": ["essays"]
+}

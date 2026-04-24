@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Essays
+permalink: /essays/
+---
+<section>
+  <h2>ESSAYS</h2>
+
+  {% if collections.essays.length %}
+    <div class="journal">
+      {% set sortedEssays = collections.essays | reverse %}
+      {% for e in sortedEssays %}
+        <article class="journal-entry">
+          <div class="journal-date">{{ e.data.date | readableDate }}</div>
+          <h3><a href="{{ e.url }}">{{ e.data.title }}</a></h3>
+          <div class="journal-body">{{ e.templateContent | safe }}</div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No essays yet.</p>
+  {% endif %}
+</section>

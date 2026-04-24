@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: Lists
+permalink: /lists/
+---
+<section>
+  <h2>LISTS</h2>
+
+  {% if collections.lists.length %}
+    {% set sortedLists = collections.lists | reverse %}
+    {% for l in sortedLists %}
+      {% set hasRanks = l.data.items | hasPositions %}
+      <article class="favlist">
+        <h3><a href="{{ l.url }}">{{ l.data.title }}</a></h3>
+        {% if l.data.description %}<p class="list-desc">{{ l.data.description }}</p>{% endif %}
+        <ol class="favlist-items {% if hasRanks %}ranked{% else %}unranked{% endif %}">
+          {% for item in l.data.items %}
+            <li class="list-item">
+              {% if hasRanks and item.position %}<span class="list-rank">{{ item.position | padZero }}</span>{% endif %}
+              <span class="list-primary">{{ item.primary }}</span>
+              {% if item.secondary %} — <span class="list-secondary">{{ item.secondary }}</span>{% endif %}
+              {% if item.year %} <span class="list-year">({{ item.year }})</span>{% endif %}
+              {% if item.note %}<div class="list-note">{{ item.note }}</div>{% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p class="empty-state">No lists yet.</p>
+  {% endif %}
+</section>

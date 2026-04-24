@@ -1,0 +1,23 @@
+---
+layout: base.njk
+---
+<section>
+  <p class="breadcrumb"><a href="/albums/">← all album reviews</a></p>
+  <article class="review review--single"
+    data-rating="{{ rating }}"
+    data-date="{{ date | isoDate }}"
+    data-sort-key="{{ artist | lower }}">
+    <header class="review-header">
+      <div class="review-title-block">
+        <div class="review-primary">{{ artist }}</div>
+        <div class="review-secondary">{{ album }} <span class="review-year">({{ year }})</span></div>
+        {% if genre %}<div class="review-tag">{{ genre }}</div>{% endif %}
+      </div>
+      <div class="review-rating {{ rating | ratingColor }}">{{ rating | toFixed(1) }}<span class="rating-slash">/10</span></div>
+    </header>
+    <div class="review-body">
+      {{ content | safe }}
+    </div>
+    <div class="review-meta">Reviewed {{ date | readableDate }}</div>
+  </article>
+</section>

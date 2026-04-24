@@ -1,0 +1,41 @@
+---
+layout: base.njk
+title: Album Reviews
+permalink: /albums/
+---
+<section>
+  <h2>ALBUM REVIEWS</h2>
+
+  {% if collections.albums.length %}
+    <div class="toolbar">
+      <span class="toolbar-label">SORT:</span>
+      <button class="sort-btn active" data-sort="date">RECENT</button>
+      <button class="sort-btn" data-sort="rating">RATING</button>
+      <button class="sort-btn" data-sort="artist">ARTIST A–Z</button>
+    </div>
+
+    <div id="album-reviews" class="reviews">
+      {% set sorted = collections.albums | reverse %}
+      {% for r in sorted %}
+        <article class="review"
+          data-rating="{{ r.data.rating }}"
+          data-date="{{ r.data.date | isoDate }}"
+          data-sort-key="{{ r.data.artist | lower }}">
+          <header class="review-header">
+            <div class="review-title-block">
+              <div class="review-primary">{{ r.data.artist }}</div>
+              <div class="review-secondary"><a href="{{ r.url }}">{{ r.data.album }}</a> <span class="review-year">({{ r.data.year }})</span></div>
+              {% if r.data.genre %}<div class="review-tag">{{ r.data.genre }}</div>{% endif %}
+            </div>
+            <div class="review-rating {{ r.data.rating | ratingColor }}">{{ r.data.rating | toFixed(1) }}<span class="rating-slash">/10</span></div>
+          </header>
+          <div class="review-body">{{ r.templateContent | safe }}</div>
+        </article>
+      {% endfor %}
+    </div>
+
+    <script src="/sort.js" defer></script>
+  {% else %}
+    <p class="empty-state">No reviews yet.</p>
+  {% endif %}
+</section>

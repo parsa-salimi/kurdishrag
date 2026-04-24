@@ -1,0 +1,30 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>parsa · kurdishrag.ca</title>
+  <subtitle>Album reviews, lists, and essays.</subtitle>
+  <link href="https://kurdishrag.ca/" />
+  <link rel="self" type="application/atom+xml" href="https://kurdishrag.ca/feed.xml" />
+  <id>https://kurdishrag.ca/</id>
+  {% set latest = collections.latest %}
+  {% if latest.length %}
+    <updated>{{ latest[0].dateObj | dateToRfc3339 }}</updated>
+  {% else %}
+    <updated>1970-01-01T00:00:00Z</updated>
+  {% endif %}
+  <author>
+    <name>Parsa</name>
+  </author>
+  {% for i in latest %}
+    <entry>
+      <title>{{ i.primary }}{% if i.secondary %} — {{ i.secondary }}{% endif %}</title>
+      <link href="https://kurdishrag.ca{{ i.url }}" />
+      <id>https://kurdishrag.ca{{ i.url }}</id>
+      <updated>{{ i.dateObj | dateToRfc3339 }}</updated>
+      <category term="{{ i.type }}" />
+    </entry>
+  {% endfor %}
+</feed>

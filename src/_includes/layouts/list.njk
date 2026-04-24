@@ -1,0 +1,24 @@
+---
+layout: base.njk
+---
+{% set hasRanks = items | hasPositions %}
+<section>
+  <p class="breadcrumb"><a href="/lists/">← all lists</a></p>
+  <article class="favlist favlist--single">
+    <h2>{{ title }}</h2>
+    {% if date %}<div class="journal-date">{{ date | readableDate }}</div>{% endif %}
+    {% if description %}<p class="list-desc">{{ description }}</p>{% endif %}
+    <ol class="favlist-items {% if hasRanks %}ranked{% else %}unranked{% endif %}">
+      {% for item in items %}
+        <li class="list-item">
+          {% if hasRanks and item.position %}<span class="list-rank">{{ item.position | padZero }}</span>{% endif %}
+          <span class="list-primary">{{ item.primary }}</span>
+          {% if item.secondary %} — <span class="list-secondary">{{ item.secondary }}</span>{% endif %}
+          {% if item.year %} <span class="list-year">({{ item.year }})</span>{% endif %}
+          {% if item.note %}<div class="list-note">{{ item.note }}</div>{% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+    {% if content %}<div class="list-trailing">{{ content | safe }}</div>{% endif %}
+  </article>
+</section>

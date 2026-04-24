@@ -1,0 +1,13 @@
+---
+layout: base.njk
+---
+<section>
+  <p class="breadcrumb"><a href="/essays/">← all essays</a></p>
+  <article class="journal-entry journal-entry--single">
+    <div class="journal-date">{{ date | readableDate }}</div>
+    <h2 class="essay-title">{{ title }}</h2>
+    <div class="journal-body">
+      {{ content | safe }}
+    </div>
+  </article>
+</section>
